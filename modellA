@@ -96,6 +96,17 @@ WHERE status IN (
 );
 
 
+' Oppgave 35'
+
+SELECT *
+FROM Utleier_turer
+WHERE bruker_id = 100
+ORDER BY start_tid DESC
+LIMIT 10;
+
+
+
+
 
 
 
