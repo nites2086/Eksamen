@@ -107,6 +107,15 @@ LIMIT 10;
 
 
 
+' Oppgave 37 '
+
+
+
+SELECT AVG(pris) AS gjennomsnittlig_pris
+FROM Utleier_turer
+WHERE pris IS NOT NULL;
+
+
 
 
 
