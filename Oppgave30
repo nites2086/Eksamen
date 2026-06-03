@@ -1,1 +1,84 @@
+CREATE TABLE Avdelinger(
+  avdeling_id INT PRIMARY KEY,
+  navn VARCHAR(100) NOT NULL,
+  leder_id INT);
+
+CREATE TABLE Ansatte(
+  ansatt_id INT PRIMARY KEY,
+  navn VARCHAR(100) NOT NULL,
+  avdeling_id INT,
+  ansettelsesdato DATE NOT NULL
+
+  FOREIGN KEY(avdeling_id)
+    REFERENCES Avdelinger(avdeling_id)
+);
+
+CREATE TABLE Prosjekter(
+  prosjekt_id INT PRIMARY KEY,
+  navn VARCHAR(100) NOT NULL,
+  budsjett DECIMAL(12,2) NOT NULL CHECK (budsjett >= 0),
+  start_dato DATE NOT NULL,
+  slutt_dato DATE,
+
+  CHECK(slutt_dato IS NULL OR slutt_dato >= start_dato)
+);
+
+CREATE TABLE Prosjektdeltakelse(
+  ansatt_id INT NOT NULL,
+  prosjekt_id INT NOT NULL,
+  rolle VARCHAR(100),
+  timer_allokert INT NOT NULL CHECK(timer_allokert >= 0)
+
+  PRIMARY KEY(ansatt_id,prosjekt_id)
+
+  FOREIGN KEY(ansatt_id)
+    REFERENCES Ansatte(ansatt_id),
+
+  FOREIGN KEY(prosjekt_id)
+    REFERENCES Prosjekter(prosjekt_id)
+);
+
+INSERT INTO Avdelinger (avdeling_id, navn, leder_id)
+  VALUES
+  (10, 'IT', NULL),
+  (20, 'Økonomi', NULL),
+  (30, 'HR', NULL);
+
+INSERT INTO Ansatte(ansatt_id, navn, avdeling_id, ansettelsesdato)
+VALUES
+(1, 'Anne Olsen', 10, '2019-08-01'),
+(2, 'Per Hansen', 10, '2021-03-10'),
+(3, 'Sara Johansen', 20, '2022-11-20'),
+(4, 'Bjørn Samuelson', 30, '2020-01-01');
+
+UPDATE Avdelinger
+SET leder_id = 1
+WHERE avdeling_id = 10;
+
+UPDATE Avdelinger
+SET leder_id = 3
+WHERE avdeling_id = 20;
+
+UPDATE Avdelinger
+SET leder_id = 4
+WHERE avdeling_id = 30;
+
+INSERT INTO Prosjekter (prosjekt_id, navn, budsjett, start_dato, slutt_dato)
+VALUES
+(100, 'Nettside', 500000, '2023-01-01', '2023-12-31'),
+(101, 'Regnskapssystem', 750000, '2024-02-01', NULL);
+
+INSERT INTO Prosjektdeltakelse (ansatt_id, prosjekt_id, rolle, timer_allokert)
+VALUES
+(1, 100, 'Prosjektleder', 200),
+(2, 100, 'Utvikler', 300),
+(3, 101, 'Økonomiansvarlig', 150),
+(4, 101, 'Koordinator', 100);
+
+SELECT *
+FROM Ansatte
+WHERE ansettelsesdato > '2020-01-01';
+
+  
+
 
