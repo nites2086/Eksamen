@@ -1,1 +1,91 @@
+CREATE TABLE Sykler(
+  sykkel_id INT PRIMARY KEY,
+
+  Status TEXT NOT NULL
+  CHECK(
+      status IN (
+          'Aktiv',
+          'På verksted',
+          'Stjålet'
+      )
+  ),
+  sist_vedlikeholdt DATE
+);
+
+CREATE TABLE Stasjoner(
+  stasjon_id INT PRIMARY KEY,
+  navn VARCHAR(100) NOT NULL,
+
+  kapasitet INT NOT NULL
+  CHECK(kapasitet > 0),
+
+  lat DECIMAL(9,6),
+  lon DECIMAL(9,6)
+
+);
+
+CREATE TABLE Brukere(
+  bruker_id INT PRIMARY KEY,
+  navn VARCHAR(100) NOT NULL,
+  telefon VARCHAR(20),
+  betalingsmetode VARCHAR(50)
+
+);
+
+
+CREATE TABLE Utleier_turer(
+  tur_id INT PRIMARY KEY,
+  sykkel_id INT NOT NULL,
+  bruker_id INT NOT NULL,
+  start_stasjon VARCHAR(100),
+  slutt_stasjon VARCHAR(100),
+  start_tid TIMESTAMP NOT NULL,
+  slutt_tid TIMESTAMP,
+  pris DECIMAL(2,8),
+
+  FOREIGN KEY (sykkel_id)
+    REFERENCES Sykler(sykkel_id),
+
+  FOREIGN KEY (bruker_id)
+    REFERENCES Bruker(bruker_id),
+
+  FOREIGN KEY (start_stasjon)
+    REFERENCES Stasjoner(stasjon_id),
+
+  FOREIGN KEY (slutt_stasjon)
+    REFERENCES Stasjoner(stasjon_id)
+);
+
+INSERT INTO Sykler
+VALUES
+(1,'Aktiv','2024-05-01'),
+(2,'På verksted','2024-04-15'),
+(3,'Stjålet','2024-03-10'),
+(4,'Aktiv','2024-05-20'),
+(5,'På verksted','2024-04-01');
+
+INSERT INTO Stasjoner
+VALUES
+(10,'Sentrum',20,62.472200,6.149500),
+(20,'NTNU',15,62.470000,6.240000);
+
+INSERT INTO Brukere
+VALUES
+(100,'Nora','90011223','Vipps'),
+(101,'Per','91122334','Kort');
+
+INSERT INTO Utleier_Turer
+VALUES
+(
+1000,
+1,
+100,
+10,
+20,
+'2024-05-15 10:00',
+'2024-05-15 10:30',
+35
+);
+
+
 
