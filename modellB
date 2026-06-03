@@ -65,4 +65,13 @@ FROM Spillere
 WHERE brukernavn LIKE 'Pro_%';
 
 
+'Oppgave 38'
+
+
+SELECT SUM(premiepott) AS totale_premiepotten
+FROM Turneringer
+WHERE start_dato >= '2025-01-01'
+AND start_dato < '2026-01-01';
+
+
 
