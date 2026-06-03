@@ -1,1 +1,65 @@
+CREATE TABLE Spillere(
+  spiller_id INT PRIMARY KEY,
+  brukernavn TEXT NOT NULL UNIQUE,
+  region TEXT NOT NULL,
+  rank TEXT
+);
+
+CREATE TABLE Turneringer(
+  turnering_id INT PRIMARY KEY,
+  navn TEXT NOT NULL,
+  start_dato DATE NOT NULL,
+  premirepott DECIMAL(12,2) CHECK(premiepott >= 0)
+);
+
+CREATE TABLE Lop(
+  lop_id INT PRIMARY KEY,
+  turnering_id INT NOT NULL,
+  bane_navn TEXT NOT NULL,
+  vaerforhold TEXT,
+
+  FOREIGN KEY (turnering_id)
+    REFERENCES Turneringer(turnering_id)
+);
+
+CREATE TABLE Deltakelser(
+  spiller_id INT NOT NULL,
+  lop_id INT NOT NULL,
+  plasseringer INT CHECK(plasseringer > 0),
+  beste_rundetid INTERVAL,
+
+  PRIMARY KEY(spiller_id,lop_id),
+
+  FOREIGN KEY (spiller_id)
+    REFERENCES Spillere(spiller_id),
+
+   FOREIGN KEY (lop_id)
+    REFERENCES Lop(lop_id)
+);
+
+
+INSERT INTO Spillere VALUES
+(1, 'Pro_Max', 'EU', 'Diamond'),
+(2, 'Pro_Racer', 'EU', 'Gold'),
+(3, 'ProX', 'NA', 'Silver'),
+(4, 'Pro_Elite', 'EU', 'Master'),
+(5, 'SpeedKing', 'NA', 'Platinum');
+
+INSERT INTO Turneringer VALUES
+(100, 'Nordic Racing Cup', '2024-05-01', 50000);
+
+INSERT INTO Lop VALUES
+(1000, 100, 'Monaco', 'Sol'),
+(1001, 100, 'Silverstone', 'Regn');
+
+INSERT INTO Deltakelser VALUES
+(1, 1000, 1, '00:01:32'),
+(2, 1000, 2, '00:01:35'),
+(4, 1001, 1, '00:01:29');
+
+SELECT *
+FROM Spillere
+WHERE brukernavn LIKE 'Pro_%';
+
+
 
