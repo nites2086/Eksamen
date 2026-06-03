@@ -1,3 +1,4 @@
+' Oppgave 31 '
 CREATE TABLE Sykler(
   sykkel_id INT PRIMARY KEY,
 
