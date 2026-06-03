@@ -87,5 +87,14 @@ VALUES
 35
 );
 
+SELECT * 
+FROM Sykler
+WHERE status IN (
+      'På verksted'
+      'Stjålet'
+);
+
+
+
 
 
