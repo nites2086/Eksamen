@@ -81,6 +81,41 @@ SELECT *
 FROM Ansatte
 WHERE ansettelsesdato > '2020-01-01';
 
+
+' Oppgave 34 '
+
+SELECT p.prosjekt_id, SUM(p.timer_allokert) AS totale_timer
+FROM Prosjektdeltakelse p
+
+JOIN Ansatte a
+ON p.ansatt_id = a.ansatt_id
+WHERE a.avdeling_id = 1
+GROUP BY p.prosjekt_id;
+
+
+
+SELECT prosjekt_id, SUM(timer_allokert) as totale_timer
+FROM Prosjektdannelse
+Group by prosjekt_id;
+HAVING SUM(timer.allokert) > 100;
+
+
+
+
+SELECT a.avdeling_id, SUM(p.timer_allokert)
+FROM Ansatte a
+
+JOIN Prosjektdannelse p
+ON a.ansatt_id = p.ansatt_id
+WHERE a.ansettelsesdato > '2026-01-01'
+GROUP BY a.avdeling_id
+HAVING SUM(p.timer_allokert) > 200;
+
+
+'OPPGAVE 36'
+
+
+
   
 
 
