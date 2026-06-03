@@ -114,6 +114,20 @@ HAVING SUM(p.timer_allokert) > 200;
 
 'OPPGAVE 36'
 
+SELECT av.navn AS Avdelingsnavn, COUNT(a.ansatt_id) AS antall_ansatte 
+FROM Avdelinger av
+
+LEFT JOIN Ansatte a
+ON a.avdeling_id = av.avdeling_id
+GROUP BY av.avdelings_id, av.navn
+
+ORDER BY av.avdeling_id;
+
+
+
+
+
+
 
 
   
