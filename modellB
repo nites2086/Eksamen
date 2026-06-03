@@ -1,3 +1,6 @@
+'Oppgave 31'
+
+
 CREATE TABLE Spillere(
   spiller_id INT PRIMARY KEY,
   brukernavn TEXT NOT NULL UNIQUE,
