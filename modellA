@@ -230,3 +230,28 @@ ON u.bruker_id = b.bruker_id
 WHERE bruker_id = 100;
 
 
+' Oppgave 56 '
+
+Hvordan bruker du LAG() eller LEAD() for å finne tidsdifferansen mellom en brukers forrige bysykkeltur (utleie) og
+deres nåværende tur (utleie)? Gjelder Modell A (Bysykkel).
+
+SELECT
+    bruker_id,
+    tur_id,
+    start_tid,
+
+    LAG(start_tid)
+    OVER (
+        PARTITION BY bruker_id
+        ORDER BY start_tid
+    ) AS forrige_tur,
+
+    start_tid -
+
+    LAG(start_tid)
+    OVER (
+        PARTITION BY bruker_id
+        ORDER BY start_tid
+    ) AS tidsdifferanse
+
+FROM Utleier_Turer;
