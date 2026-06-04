@@ -132,6 +132,26 @@ JOIN Avdeling av
 ON a.avdeling_id = av.avdeling_id;
 
 
+' Oppgave 45 '
+Skriv en SQL-spørring som finner alle ansatte som ikke tilhører noen avdelinger og 
+alle avdelinger som ikke har noen ansatte. 
+Ta selv nødvendige forutsetninger om definisjoner i skjema (betingelser som not null, f.eks.). 
+Gjelder Modell C (Bedrift).
+
+SELECT a.navn, av.navn AS avdeling_navn
+FROM Ansatte a
+FULL OUTER JOIN Avdelinger av
+ON a.avdeling_id = av.avdeling_id
+WHERE a.ansatt_id IS NULL OR av.avdeling_id is NULL;
+
+' Oppgave 46 '
+Skriv en SQL-spørring som finner navnet på lederen for avdeling 'IT'. Gjelder Modell C (Bedrift).
+
+SELECT a.navn AS navn_leder, av.navn AS avdeling_navn
+FROM Avdelinger av
+JOIN Ansatte a
+ON av.leder_id = a.ansatt_id
+WHERE av.navn = 'IT';
 
 
 
