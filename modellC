@@ -195,6 +195,41 @@ FROM Prosjektdeltakelse
 
 
 
+' Oppgave 55 '
+Utvid Modell C (Bedrift) slik at det kan brukes rekursiv spørring 
+(tips: legg inn en selvreferanse i tabellen Ansatte). Skriv en rekursiv CTE (WITH RECURSIVE) 
+for å finne alle underordnede (i alle ledd) til en spesifikk leder i den modifiserte versjonen av Modell C (Bedrift).
+
+ALTER TABLE Ansatte
+ADD COLUMN leder_id INT
+REFERENCES Ansatte(ansatt_id);
+
+WITH RECURSIVE underordnede AS (
+
+    SELECT
+        ansatt_id,
+        navn
+
+    FROM Ansatte
+
+    WHERE leder_id = 1
+
+    UNION ALL
+
+    SELECT
+        a.ansatt_id,
+        a.navn
+
+    FROM Ansatte a
+
+    JOIN underordnede u
+    ON a.leder_id = u.ansatt_id
+
+)
+
+SELECT *
+FROM underordnede;
+
 
 
 
