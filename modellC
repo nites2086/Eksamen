@@ -124,6 +124,13 @@ GROUP BY av.avdelings_id, av.navn
 ORDER BY av.avdeling_id;
 
 
+' Oppgave 42 '
+
+SELECT a.navn, a.ansatt_id, av.navn AS Avdeling_navn
+FROM Ansatte a
+JOIN Avdeling av
+ON a.avdeling_id = av.avdeling_id;
+
 
 
 
