@@ -163,3 +163,26 @@ ON b.bruker_id = u.bruker_id
 WHERE u.tur_id IS NULL;
 
 
+' Oppgave 47 '
+Hvordan lister du ut alle sykler og navnet på stasjonen de sist ble parkert på (hvis de er parkert)? 
+Gjelder Modell A (Bysykkel).
+
+SELECT DISTINCT ON (sy.sykkel_id)
+sy.sykkel_id AS sykkel, s.navn AS stasjon_navn
+FROM Sykler sy
+
+
+LEFT JOIN Utleier_Turer u
+ON sy.sykkel_id = u.sykkel_id
+
+LEFT JOIN Stasjon s
+ON u.slutt_stasjon = s.stasjon_id
+
+WHERE u.slutt_stasjon IS NOT NULL
+ORDER BY u.sykkel_id, u.slutt_tid DESC;
+
+WHERE u.slutt_tid = (
+    SELECT MAX(u2.slutt_tid)
+    FROM Utleier_Turer u2
+    WHERE u2.sykkel_id = sy.sykkel_id
+);
