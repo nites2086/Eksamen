@@ -186,3 +186,28 @@ WHERE u.slutt_tid = (
     FROM Utleier_Turer u2
     WHERE u2.sykkel_id = sy.sykkel_id
 );
+
+
+
+' Oppgave 50' 
+
+Skriv en CTE som først finner alle utleier over 60 minutter, og deretter en hovedspørring
+som teller hvor mange slike turer hver bruker har. Gjelder Modell A (Bysykkel).
+
+
+
+WITH over_60_min AS (
+    SELECT
+        tur_id,
+        bruker_id,
+        slutt_tid - start_tid AS varighet
+    FROM Utleier_Turer
+    WHERE slutt_tid IS NOT NULL
+      AND slutt_tid - start_tid > INTERVAL '60 minutes'
+)
+
+SELECT
+    bruker_id,
+    COUNT(*) AS antall_turer_over_60_min
+FROM over_60_min
+GROUP BY bruker_id;
