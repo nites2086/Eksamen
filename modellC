@@ -154,6 +154,18 @@ ON av.leder_id = a.ansatt_id
 WHERE av.navn = 'IT';
 
 
+'OPPGAVE 48' 
+Skriv en spørring med en delspørring i WHERE-klausulen for å finne den ansatte med høyest ansatt_id (sist ansatt,
+hvis man antar at ansatt_id er designet slik at den øker kronologisk). Gjelder Modell C (Bedrift).
+
+SELECT ansatt_id, navn
+FROM Ansatte
+WHERE ansatt_id = (
+SELECT MAX(ansatt_id)
+FROM Ansatte
+);
+      
+
 
 
 
