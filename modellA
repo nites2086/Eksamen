@@ -150,3 +150,16 @@ FROM teller
 WHERE rang = 1;
 
 
+' Oppgave 43 '
+Hvordan finner du alle brukere som aldri har hatt en bysykkeltur? Gjelder Modell A (Bysykkel). 
+Se vedlegg "Tips om joins".
+
+SELECT b.navn
+FROM Brukere b
+
+LEFT JOIN Utleiere_turer u
+ON b.bruker_id = u.bruker_id
+
+WHERE u.tur_id IS NULL;
+
+
