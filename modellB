@@ -74,4 +74,28 @@ WHERE start_dato >= '2025-01-01'
 AND start_dato < '2026-01-01';
 
 
+' Oppgave 51 '
+Hvordan bruker du en vekselvirkende delspørring (se pensumboken side 127 5. utgave) 
+for å finne den beste rundetid for hver spiller på tvers av alle løp? Gjelder Modell B (E-sport).
+
+SELECT s.brukernavn, l.lop_id, d.beste_rundetid
+FROM Spillere s
+JOIN Deltakelser d
+ON s.spiller_id = d.spiller_id
+JOIN Lop l
+ON d.lop_id = l.lop_id
+
+WHERE d.beste_rundetid = (
+SELECT MIN(d2.beste_rundetid)
+FROM Deltakelser d2
+WHERE d2.spiller_id = d.spiller_id
+);
+
+
+
+
+
+
+
+
 
