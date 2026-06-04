@@ -93,6 +93,20 @@ WHERE d2.spiller_id = d.spiller_id
 
 
 
+' Oppgave 53 '
+Skriv en vindusfunksjon-spørring som rangerer (RANK()) spillere basert på deres beste_rundetid 
+i et spesifikt løp. Gjelder Modell B (E-sport).
+
+SELECT s.brukernavn AS navn, d.beste_rundetid
+ RANK() OVER (
+        ORDER BY d.beste_rundetid ASC
+    ) AS plassering
+FROM Spillere s
+
+JOIN Deltakelser d
+ON s.spiller_id = d.spiller_id
+
+WHERE d.loop_id = 1000;
 
 
 
