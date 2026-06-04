@@ -164,7 +164,37 @@ WHERE ansatt_id = (
 SELECT MAX(ansatt_id)
 FROM Ansatte
 );
-      
+
+
+' Oppgave 52 '
+Skriv en spørring som finner alle avdelinger der gjennomsnittlig timer_allokert per 
+ansatt er høyere enn bedriftens totale gjennomsnitt. Gjelder Modell C (Bedrift).
+
+SELECT av.navn AS avdeling_navn
+FROM Avdelinger av
+
+JOIN Ansatte a
+ON av.avdeling_id = a.avdeling_id
+
+JOIN Prosjektdeltakelse p
+ON a.ansatt_id = p.ansatt_id
+
+GROUP BY
+    av.avdeling_id,
+    av.navn
+
+HAVING AVG(p.timer_allokert) >
+
+(
+
+SELECT AVG(timer_allokert)
+
+FROM Prosjektdeltakelse
+
+);
+
+
+
 
 
 
