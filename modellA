@@ -109,13 +109,44 @@ LIMIT 10;
 
 ' Oppgave 37 '
 
-
-
 SELECT AVG(pris) AS gjennomsnittlig_pris
 FROM Utleier_turer
 WHERE pris IS NOT NULL;
 
 
+' Oppgave 39 '
 
+Hvordan finner du den stasjon som har hatt flest utleier som startet der? 
+Hvordan kan man vise flere stasjoner, hvis de har lik antall av flest utleier? 
+Besvar det andre spørsmålet ved hjelp av et vindusfunksjon (tips RANK()). Gjelder Modell A (Bysykkel).
+
+SELECT s.stasjon_id, s.navn, COUNT(*) as antall_utleier  
+FROM Stasjoner s
+JOIN Utleier_turer u
+ON s.stasjon_id = u.start_stasjon
+GROUP BY s.stasjon_id, s.navn
+ORDER BY antall_utleier DESC
+LIMIT 1;
+
+WITH teller AS (
+
+SELECT
+    start_stasjon,
+
+    COUNT(*) AS antall,
+
+    RANK() OVER (
+        ORDER BY COUNT(*) DESC
+    ) AS rang
+
+FROM Utleier_Turer
+
+GROUP BY start_stasjon
+
+)
+
+SELECT *
+FROM teller
+WHERE rang = 1;
 
 
