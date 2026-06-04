@@ -211,3 +211,22 @@ SELECT
     COUNT(*) AS antall_turer_over_60_min
 FROM over_60_min
 GROUP BY bruker_id;
+
+
+' Oppgave 54 '
+Hvordan beregner du en løpende sum av pris for alle utleier en bestemt bruker har tatt, 
+sortert på start_tid? Gjelder Modell A (Bysykkel).
+
+SELECT b.navn, u.tur_id, u.start_tid, u.pris,
+
+SUM (u.pris)
+OVER (
+ORDER BY u.start_tid)
+AS lopende_sum
+
+FROM Utleier_Turer u
+JOIN Brukere b
+ON u.bruker_id = b.bruker_id
+WHERE bruker_id = 100;
+
+
