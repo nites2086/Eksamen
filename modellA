@@ -255,3 +255,18 @@ SELECT
     ) AS tidsdifferanse
 
 FROM Utleier_Turer;
+
+
+' Oppgave 57 '
+Skriv en spørring som bruker COALESCE for å returnere 'Ukjent' hvis en sykkel ikke har en registrert
+sist_vedlikeholdt dato. Anta at sist_vedlikeholdt kan ha NULL-verdier og er av typen DATE. 
+Vis også sykkel_id i resultatet. Gjelder Modell A (Bysykkel).
+
+SELECT sykkel_id,
+COALESCE(
+sist_vedlikeholdt::TEXT, 
+'Ukjent') AS sist_vedlikeholdt
+FROM Sykler;
+
+
+
