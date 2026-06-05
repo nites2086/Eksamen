@@ -109,7 +109,36 @@ ON s.spiller_id = d.spiller_id
 WHERE d.loop_id = 1000;
 
 
+' Oppgave 59 '
 
+
+CREATE MATERIALIZED VIEW mv_turneringer_ledertavle AS
+SELECT 
+t.turnering_id, 
+t.navn AS turnering_navn, 
+s.spiller_id, 
+s.brukernavn, 
+COUNT(l.lop_id) AS lop_i_turnering,
+AVG(d.plasseringer) AS snitt_plassering, 
+
+MIN(d.beste_rundetid) AS beste_tid_i_rundetid,
+RANK() OVER (
+PARTITION BY t.turnering_id
+ORDER BY AVG(d.plasseringer)) AS rang_i_turnering
+
+
+FROM Turneringer t
+
+JOIN Lop l
+ON t.turnering_id = l.turnering_id
+
+JOIN Deltakelser d
+ON l.lop_id = d.lop_id
+
+JOIN Spillere s
+ON d.spiller_id = s.spiller_id
+
+GROUP BY t.turnering_id, t.navn, s.spiller_id, s.brukernavn;
 
 
 
